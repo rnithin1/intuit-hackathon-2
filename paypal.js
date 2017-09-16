@@ -6,7 +6,7 @@ chrome.storage.sync.get(['monies'], function(monies){
     isEmpty = Object.keys(monies).length === 0 && monies.constructor === Object;
     console.log(Monies);
     if(!isEmpty && Monies){
-        chrome.storage.sync.get(['times'], function(times){
+        chrome.storage.sync.get(['times'], function(times
             if(time - times['times'][times['times'].length - 1] > 2 || monies['monies'][monies['monies'].length - 1] != Monies){
                 console.log(monies['monies']);
                 console.log(times['times']);
@@ -16,10 +16,10 @@ chrome.storage.sync.get(['monies'], function(monies){
                 chrome.storage.sync.set({"times": times['times']}, function(){});
                 regression = findLineByLeastSquares(times['times'],monies['monies']);
                 console.log(regression);
-                
+
                 chrome.storage.sync.set({"regression": regression}, function(){});
 
-            } 
+            }
         });
     } else if (Monies){
         chrome.storage.sync.set({"monies": [Monies]}, function(){});
@@ -37,10 +37,6 @@ function findLineByLeastSquares(values_x, values_y) {
     var x = 0;
     var y = 0;
     var values_length = values_x.length;
-
-    if (values_length != values_y.length) {
-        throw new Error('The parameters values_x and values_y need to have same size!');
-    }
 
     if (values_length === 0) {
         return [ [], [] ];
@@ -70,20 +66,7 @@ function findLineByLeastSquares(values_x, values_y) {
     }
 
     var result_slope = (result_values_y[1] - result_values_y[0]) / (result_values_x[1] - result_values_x[0]);
-    console.log(result_slope);
     var result_y_intercept = result_values_y[0] - (result_slope * result_values_x[0]);
 
     return [result_slope, result_y_intercept];
 }
-
-
-
-/*
-"http://www.paypal.com/*","http://paypal.com/*",
-                "https://www.paypal.com/*","https://paypal.com/*"
-*/
-
-//console.log(Monies);
-
-
-/*list.getElementsByClassName("child")[0].innerHTML*/

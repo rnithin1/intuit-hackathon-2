@@ -10,7 +10,7 @@ var getDate = function(callback) {
     chrome.storage.sync.get(['regression'], function(regression){
       var slope = regression['regression'][0];
       var y_intercept = regression['regression'][1];
-     
+
       var target_time = new Date(Math.round((target - y_intercept) / slope));
       var current_time = new Date((new Date()).getTime());
 
@@ -31,26 +31,22 @@ var getDate = function(callback) {
 
       else if (target_date == todays_date)
         callback("Hey you can buy this today");
-      
+
       else if (target_date == todays_date.slice(0, 9) + ((parseInt(todays_date.slice(9)) + 1).toString()))
         callback("Hey you can buy this tomorrow");
-      
+
       else
         callback("At this rate, you'll be able to get this by " + target_local_time.toISOString().slice(0, 10));
       });
     });
   }
 
-//  console.log(rv);
-
 }
 
-// Add bubble to the top of the page.
 var tooltipDOM = document.createElement('div');
 tooltipDOM.setAttribute('class', 'tooltip');
 document.body.appendChild(tooltipDOM);
 
-// Lets listen to mouseup DOM events.
 document.addEventListener('mouseup', function (e) {
   var code = window.getSelection().toString().replace(",","");
   if ((code.length > 0 && code.charAt(0) == "$" && code.slice(1) == parseFloat(code.slice(1)) && parseFloat(code.slice(1)) >= 0)
@@ -62,23 +58,15 @@ document.addEventListener('mouseup', function (e) {
 }, false);
 
 
-// Close the bubble when we click on the screen.
 document.addEventListener('mousedown', function (e) {
 tooltipDOM.innerHTML = '<span class="tooltiptext" style="visibility: hidden"></span>';
-  //tooltipDOM.style.visibility = 'hidden';
 }, false);
 
-// Move that bubble to the appropriate location.
+
 function renderTooltip(mouseX, mouseY, selection) {
   console.log(selection);
   tooltipDOM.innerHTML = '<span class="tooltiptext" style="visibility: visible">' + selection + '</span>';
   console.log(tooltipDOM.innerHTML);
   tooltipDOM.style.top = mouseY + 'px';
   tooltipDOM.style.left = mouseX + 'px';
- // tooltipDOM.style.visibility = 'visible';
 }
-
-console.log("script running");
-//getDate();
-//window.setInterval(getDate, 1000);
-//window.addEventListener("mouseup",getDate);

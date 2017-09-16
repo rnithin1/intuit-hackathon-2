@@ -1,9 +1,9 @@
 {
   "manifest_version": 2,
 
-  "name": "Getting started example",
-  "description": "This extension allows the user to change the background color of the current page.",
-  "version": "1.0",
+  "name": "Money Tracker",
+  "description": "This extension uses your PayPal transaction history to predict when you'll have enough savings to buy products you want.",
+  "version": "2.0",
 
   "browser_action": {
     "default_icon": "icon.png",
@@ -16,7 +16,7 @@
   "content_scripts": [
         {
             "matches": [
-                "file:///home/kevin/Documents/hackathons/intuit-extension/paypal.html", "https://www.paypal.com/myaccount/home"
+                "https://www.paypal.com/myaccount/home"
             ],
             "js": [
                 "paypal.js"
@@ -31,18 +31,9 @@
                 "not-paypal.js"
             ],
 	    "css":[
-                "bs.css"
-            ],
-            "run_at": "document_end"
-        },
-        {
-            "matches": [
-                "*://*/*"
-            ],
-            "js": [
-                "denero.js"
+                "tooltip.css"
             ],
             "run_at": "document_end"
         }
-    ]   
+    ]
 }
